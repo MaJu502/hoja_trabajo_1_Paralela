@@ -73,9 +73,9 @@ int main(int argc, char* argv[]) {
     double resultado_cubo = trapezoide(2, a, b, n);
     double resultado_seno = trapezoide(3, a, b, n);
 
-    printf(" >> Resultado de integral con cuadrado \n     con n = %d trapezoides, nuestra aproximacion de la integral de (%f, %f) es %f\n", n, a, b, resultado_cuadrado);
-    printf(" >> Resultado de integral con cubo \n     con n = %d trapezoides, nuestra aproximacion de la integral de (%f, %f) es %f\n", n, a, b, resultado_cubo);
-    printf(" >> Resultado de integral con seno \n     con n = %d trapezoides, nuestra aproximacion de la integral de (%f, %f) es %f\n", n, a, b, resultado_seno);
+    printf(" >> Resultado de integral con cuadrado \n     con n = %d trapezoides, nuestra aproximacion de la integral de (%f, %f) es\n  --> %f\n", n, a, b, resultado_cuadrado);
+    printf(" >> Resultado de integral con cubo \n     con n = %d trapezoides, nuestra aproximacion de la integral de (%f, %f) es\n  --> %f\n", n, a, b, resultado_cubo);
+    printf(" >> Resultado de integral con seno \n     con n = %d trapezoides, nuestra aproximacion de la integral de (%f, %f) es\n  --> %f\n", n, a, b, resultado_seno);
 
     return 0;
 }

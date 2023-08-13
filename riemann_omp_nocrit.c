@@ -72,6 +72,30 @@ void trapezoide(int tipo, double a, double b, int n, int threads) {
 }
 
 int main(int argc, char* argv[]) {
-    // Resto del código de la función main
-    // (mismo código que proporcionaste en la implementación original)
+        if (argc <= 3) {
+        printf(" >> ERROR: input de parametros no estan correctos");
+        return 1;
+    }
+
+    // parametros a operar
+    double a = atof(argv[1]);
+    double b = atof(argv[2]);
+
+    // numero de intervalos
+    int n = 1000000; 
+    
+    // parametros nuevos
+    int threads = atoi(argv[3]); // se agrego cantidad de threads del ejercicio anterior.
+    
+    // verificacion que se pueda computar en el algoritmo la cantidad de threads
+    if (n % threads) {
+        printf(" >> ERROR: la cantidad de trapezoides (10e6) tiene que ser multiplo de threads que ingreses.");
+        return 1;
+    }
+
+    trapezoide(1, a, b, n, threads);
+    trapezoide(2, a, b, n, threads);
+    trapezoide(3, a, b, n, threads);
+
+    return 0;
 }

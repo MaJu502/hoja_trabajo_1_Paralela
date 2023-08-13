@@ -70,7 +70,7 @@ void trapezoide(int tipo, double a, double b, int n, int threads) {
     }
 
     // Imprimir el resultado después de que todos los hilos hayan contribuido
-    printf("Resultado de la integral \n     con n = %d trapezoides, nuestra aproximacion de la integral de (%f, %f) es %f\n", n, a, b, resultado);
+    printf("Resultado de la integral \n     con n = %d trapezoides, nuestra aproximacion de la integral de \n(%f, %f) es %f\n", n, a, b, resultado);
 }
 
 
@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    trapezoide(1, a, b, n, threads);
+    trapezoide(3, a, b, n, threads);
 
     return 0;
 }
