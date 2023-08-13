@@ -12,21 +12,22 @@
 
 // Funciones solicitadas en ejercicio
 double fun_cuadrada(double x) {
-    return x * x;
+    return x * x; // cuadrado del input
 }
 
 double fun_cubo(double x) {
-    return 2 * pow(x, 3);
+    return 2 * pow(x, 3); // 2 por la potencia del input al cubo
 }
 
 double fun_seno(double x) {
-    return sin(x);
+    return sin(x); // funcion de seno
 }
 
 // Funcion trapezoide para riemann
 double trapezoide(int tipo, double a, double b, int n) {
     double (*f)(double); // Declaración de un puntero a función
 
+    // verificar el tipo de funcion que se quiere trabajar 
     switch (tipo) {
         case 1:
             f = fun_cuadrada;

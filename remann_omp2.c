@@ -10,15 +10,15 @@
 
 // Funciones solicitadas en ejercicio
 double fun_cuadrada(double x) {
-    return x * x;
+    return x * x; // cuadrado del input
 }
 
 double fun_cubo(double x) {
-    return 2 * pow(x, 3);
+    return 2 * pow(x, 3); // 2 por la potencia del input al cubo
 }
 
 double fun_seno(double x) {
-    return sin(x);
+    return sin(x); // funcion de seno
 }
 
 
@@ -26,6 +26,7 @@ void trapezoide(int tipo, double a, double b, int n, int threads) {
 
     double (*f)(double); // Declaración de un puntero a función
 
+    // determinar que tipo de funcion quiere usarse
     switch (tipo) {
         case 1:
             f = fun_cuadrada;
@@ -38,14 +39,13 @@ void trapezoide(int tipo, double a, double b, int n, int threads) {
             break;
         default:
             printf("Tipo de función inválido.\n");
-            return 0.0;
+            return;
     }
     double h = (b - a) / n;
 
-    // aqui cambia pues la integral va a estar declarada y le vamos pool_threadsando con los threads
     double resultado = 0.0;
 
-    // Paralelizar es una fiesta
+    // Paralelizar todo el código excepto el bucle for
     #pragma omp parallel num_threads(threads)
     {
         int thread_num = omp_get_thread_num();
@@ -53,20 +53,26 @@ void trapezoide(int tipo, double a, double b, int n, int threads) {
         double B_threaded = A_threaded + (n / threads) * h;
         double pool_threads = (f(A_threaded) + f(B_threaded)) / 2.0;
 
-        for (int i = 1; i < (n / threads); i++) {
-            double x = A_threaded + i * h;
-            pool_threads += f(x);
+        // No paralelizar este proceso segun se solicito en la hoja de trabajo
+        #pragma omp single
+        {
+            for (int i = 1; i < (n / threads); i++) {
+                double x = A_threaded + i * h;
+                pool_threads += f(x);
+            }
+
+            pool_threads *= h;
+
+            // Agregar el resultado calculado por el hilo principal
+            #pragma omp atomic
+            resultado += pool_threads;
         }
-
-        pool_threads *= h;
-
-        // Sector critico entonces se debe de mencionar omp critical para evitar problemas en la suma de los threads
-        #pragma omp critical
-        resultado += pool_threads; // se suma
     }
 
+    // Imprimir el resultado después de que todos los hilos hayan contribuido
     printf("Resultado de la integral \n     con n = %d trapezoides, nuestra aproximacion de la integral de (%f, %f) es %f\n", n, a, b, resultado);
 }
+
 
 int main(int argc, char* argv[]) {
     if (argc <= 3) {
